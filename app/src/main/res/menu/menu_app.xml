@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_baseline_menu_24"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/Home"
+                android:title="Home"
+                android:icon="@drawable/ic_baseline_home_24"
+                />
+            <item
+                android:id="@+id/GEO_Cambio"
+                android:title="GEO_Cambio"
+                android:icon="@drawable/ic_baseline_map_24"
+                />
+            <item
+                android:id="@+id/Manual_Cambio"
+                android:title="Manual_Cambio"
+                android:icon="@drawable/ic_baseline_history_24"
+                />
+            <item
+                android:id="@+id/Historial"
+                android:title="Historial"
+                android:icon="@drawable/ic_baseline_history_24"
+                />
+            <item
+                android:id="@+id/Perfil"
+                android:title="Perfil"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+
+            <item
+                android:id="@+id/Salir"
+                android:title="Salir"
+                android:icon="@drawable/ic_baseline_exit_to_app_24"
+                />
+        </menu>
+
+    </item>
+
+</menu>

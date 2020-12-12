@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MIB_CambioMoneda</string>
+    <string name="calcular">Calcular</string>
+    <string name="restablecer">Restablecer</string>
+</resources>
