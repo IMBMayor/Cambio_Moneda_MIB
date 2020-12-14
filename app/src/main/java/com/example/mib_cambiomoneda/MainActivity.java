@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mib_cambiomoneda.Modelo.Paises;
 import com.example.mib_cambiomoneda.Modelo.PaisesDataSource;
 
 import org.json.JSONArray;
@@ -39,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        //dataSource=new PaisesDataSource(this);
-        //dataSource.openDB();
-        //dataSource.closeDB();
-
+        dataSource = new PaisesDataSource(this);
+        crearContacto();
     }
 
     public void Ingresar(View view) {
@@ -108,4 +107,80 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void crearContacto(){
+
+        Paises Argentina=new Paises();
+
+        Argentina.setNombre("Argentina");
+        Argentina.setSiglas("ARS");
+        Argentina.setPrecio(0.11);
+
+        Paises Bolivia=new Paises();
+
+        Bolivia.setNombre("Bolivia");
+        Bolivia.setSiglas("BOB");
+        Bolivia.setPrecio(0.01);
+
+        Paises Brasil=new Paises();
+
+        Brasil.setNombre("Brasil");
+        Brasil.setSiglas("BRL");
+        Brasil.setPrecio(0.01);
+
+        Paises Chile=new Paises();
+
+        Chile.setNombre("Chile");
+        Chile.setSiglas("CHL");
+        Chile.setPrecio(1.00);
+
+        Paises Colombia=new Paises();
+
+        Colombia.setNombre("Colombia");
+        Colombia.setSiglas("COP");
+        Colombia.setPrecio(5.00);
+
+        Paises Estados_Unidos=new Paises();
+
+        Estados_Unidos.setNombre("Estados Unidos");
+        Estados_Unidos.setSiglas("EEUU");
+        Estados_Unidos.setPrecio(0.0014);
+
+        Paises Peru=new Paises();
+
+        Peru.setNombre("Perú");
+        Peru.setSiglas("PEN");
+        Peru.setPrecio(0.0049);
+
+        Paises Uruguay=new Paises();
+
+        Uruguay.setNombre("Uruguay");
+        Uruguay.setSiglas("UYU");
+        Uruguay.setPrecio(0.058);
+
+        dataSource.openDB();
+        Argentina = dataSource.insertPaises(Argentina);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Bolivia = dataSource.insertPaises(Bolivia);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Brasil = dataSource.insertPaises(Brasil);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Chile = dataSource.insertPaises(Chile);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Colombia = dataSource.insertPaises(Colombia);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Estados_Unidos = dataSource.insertPaises(Estados_Unidos);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Peru = dataSource.insertPaises(Peru);
+        dataSource.closeDB();
+        dataSource.openDB();
+        Uruguay = dataSource.insertPaises(Uruguay);
+        dataSource.closeDB();
+
+    }
 }

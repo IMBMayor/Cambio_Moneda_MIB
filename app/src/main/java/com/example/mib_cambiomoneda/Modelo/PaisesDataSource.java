@@ -1,5 +1,6 @@
 package com.example.mib_cambiomoneda.Modelo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,23 +25,50 @@ public class PaisesDataSource{
     }
 
 
-    public List<Paises> obtenerContactos(String NombrePaisDes, String NombrePaisOri){
+    /*public Paises obtenerPaisOrigen(String NombrePaisOri){
 
-        List<Paises> paises = new ArrayList<>();
-        String query="SELECT * FROM PAISES where NombrePaisOrigen=NombrePaisOri and NombrePaisDestino=NombrePaisDes";
+        Paises paisOrigen = new Paises();
+        String query="SELECT * FROM PAISES where Nombre='"+NombrePaisOri+"'";
 
         Cursor cursor= database.rawQuery(query,null);
 
         if(cursor.getCount() > 0 ){
             while (cursor.moveToNext()){
-                Paises pais = new Paises();
-                pais.setNombre(cursor.getString(cursor.getColumnIndex("Nombre")));
-                pais.setSiglas(cursor.getString(cursor.getColumnIndex("Siglas")));
-                pais.setPrecio(cursor.getFloat(cursor.getColumnIndex("Precio")));
-                paises.add(pais);
+                paisOrigen.setNombre(cursor.getString(cursor.getColumnIndex("Nombre")));
+                paisOrigen.setSiglas(cursor.getString(cursor.getColumnIndex("Siglas")));
+                paisOrigen.setPrecio(cursor.getFloat(cursor.getColumnIndex("Precio")));
             }
         }
 
+        return paisOrigen;
+    }*/
+
+    public Paises obtenerPaisDestino(String NombrePaisDes){
+
+        Paises paisDestino = new Paises();
+        String query="SELECT * FROM PAISES where Nombre='"+NombrePaisDes+"'";
+
+        Cursor cursor= database.rawQuery(query,null);
+
+        if(cursor.getCount() > 0 ){
+            while (cursor.moveToNext()){
+                paisDestino.setNombre(cursor.getString(cursor.getColumnIndex("Nombre")));
+                paisDestino.setSiglas(cursor.getString(cursor.getColumnIndex("Siglas")));
+                paisDestino.setPrecio(cursor.getFloat(cursor.getColumnIndex("Precio")));
+            }
+        }
+
+        return paisDestino;
+    }
+
+    public Paises insertPaises(Paises paises){
+        ContentValues valores = new ContentValues();
+        valores.put("Nombre",paises.getNombre());
+        valores.put("Siglas",paises.getSiglas());
+        valores.put("Precio",paises.getPrecio());
+
+        long paisesid = database.insert("paises",null,valores);
+        paises.setId(paisesid);
         return paises;
     }
 }

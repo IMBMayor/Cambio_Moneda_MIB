@@ -34,6 +34,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mib_cambiomoneda.Modelo.Paises;
+import com.example.mib_cambiomoneda.Modelo.PaisesDataSource;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,6 +47,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +69,8 @@ public class GEO_Cambio extends AppCompatActivity implements OnMapReadyCallback 
     private String paisDestino;
     private String montoDestino;
     private String Usuario;
-
+    private PaisesDataSource dataSource;
+    private Paises PaisDestino;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,7 @@ public class GEO_Cambio extends AppCompatActivity implements OnMapReadyCallback 
         SharedPreferences prefs = getBaseContext().getSharedPreferences("Usuario", Context.MODE_PRIVATE);
         NombrePaisOrigen=prefs.getString("Pais","");
         Usuario=prefs.getString("Email","");
+        dataSource = new PaisesDataSource(this);
     }
 
     public void onMapReady(GoogleMap map) {
@@ -157,13 +162,22 @@ public class GEO_Cambio extends AppCompatActivity implements OnMapReadyCallback 
 
     public void Calcular(View view) {
         //aca API de Cambio de moneda
-        float cambioOrigenDestino = (float) (Float.parseFloat(numberOrigenGeo.getText().toString().trim())*1.28611);
-        numberDestinoGeo.setText(Float.toString(cambioOrigenDestino));
 
         paisOrigen=NombrePaisOrigen;
         montoOrigen=numberOrigenGeo.getText().toString().trim();
         paisDestino=NombrePaisDestino;
-        montoDestino=Float.toString(cambioOrigenDestino);
+
+        dataSource.openDB();
+        PaisDestino=dataSource.obtenerPaisDestino(NombrePaisDestino);
+        dataSource.closeDB();
+
+        Double cambioOrigenDestino = Double.parseDouble(montoOrigen)*PaisDestino.getPrecio();
+        DecimalFormat formato = new DecimalFormat();
+        formato.setMaximumFractionDigits(2); //Numero maximo de decimales a mostrar
+
+        numberDestinoGeo.setText(formato.format(cambioOrigenDestino));
+
+        montoDestino=Double.toString(cambioOrigenDestino);
         DBVolley();
 
     }

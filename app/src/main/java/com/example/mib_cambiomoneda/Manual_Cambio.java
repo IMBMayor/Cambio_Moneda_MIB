@@ -21,8 +21,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mib_cambiomoneda.Modelo.Paises;
+import com.example.mib_cambiomoneda.Modelo.PaisesDataSource;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Manual_Cambio extends AppCompatActivity {
@@ -39,6 +43,8 @@ public class Manual_Cambio extends AppCompatActivity {
     private String paisDestino;
     private String montoDestino;
     private String Usuario;
+    private PaisesDataSource dataSource;
+    private Paises PaisDestino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,7 @@ public class Manual_Cambio extends AppCompatActivity {
         Usuario=prefs.getString("Email","");
         spinnerOrigenManual.setSelection(obtenerPosicionItem(spinnerOrigenManual,NombrePaisOrigen));
         spinnerOrigenManual.setEnabled(false);
+        dataSource = new PaisesDataSource(this);
     }
 
     public static int obtenerPosicionItem(Spinner spinner, String NombrePais) {
@@ -78,14 +85,20 @@ public class Manual_Cambio extends AppCompatActivity {
         }else if(NombrePaisDestino.equals("Seleccione...")){
             Toast.makeText(this,"Ingrese pais de destino",Toast.LENGTH_LONG).show();
         }else {
-            //aca Api de cambio
-            float cambioOrigenDestino = (float) (Float.parseFloat(numberOrigen)*1.28611);
-            numberDestinoManual.setText(Float.toString(cambioOrigenDestino));
+
+            dataSource.openDB();
+            PaisDestino=dataSource.obtenerPaisDestino(NombrePaisDestino);
+            dataSource.closeDB();
+
+            Double cambioOrigenDestino = Double.parseDouble(numberOrigen)*PaisDestino.getPrecio();
+            DecimalFormat formato = new DecimalFormat();
+            formato.setMaximumFractionDigits(2); //Numero maximo de decimales a mostrar
+            numberDestinoManual.setText(formato.format(cambioOrigenDestino));
 
             paisOrigen=NombrePaisOrigen;
             montoOrigen=numberOrigen;
             paisDestino=NombrePaisDestino;
-            montoDestino=Float.toString(cambioOrigenDestino);
+            montoDestino=Double.toString(cambioOrigenDestino);
             DBVolley();
         }
     }

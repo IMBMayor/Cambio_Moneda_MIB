@@ -1,12 +1,20 @@
 package com.example.mib_cambiomoneda.Modelo;
 
 public class Paises {
-
+    long Id;
     String Nombre;
     String Siglas;
-    float Precio;
+    double Precio;
 
     public Paises() {
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getNombre() {
@@ -25,11 +33,11 @@ public class Paises {
         Siglas = siglas;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return Precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         Precio = precio;
     }
 }

@@ -15,15 +15,7 @@ public class PaisesDBOpenHelper extends SQLiteOpenHelper {
             "id INTEGER PRIMARY KEY autoincrement," +
             "Nombre TEXT," +
             "Siglas TEXT," +
-            "Precio FLOAT)";
-    private static final String INSERT_PAIS_Argentina="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Argentina','ARS',0,11) ";
-    private static final String INSERT_PAIS_Bolivia="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Bolivia','BOB',0,01) ";
-    private static final String INSERT_PAIS_Brasil="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Brasil','BRL',0,01) ";
-    private static final String INSERT_PAIS_Chile="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Chile','CHL',1)";
-    private static final String INSERT_PAIS_Colombia="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Colombia','COP',5.00) ";
-    private static final String INSERT_PAIS_Estados_Unidos="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Estados Unidos','EEUU',0.0014)";
-    private static final String INSERT_PAIS_Peru="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Perú','PEN',0.0049) ";
-    private static final String INSERT_PAIS_Uruguay="INSERT INTO PAISES (Nombre,Siglas,Precio) VALUES ('Uruguay','UYU',0.058) ";
+            "Precio DOUBLE)";
 
 
     public PaisesDBOpenHelper(@Nullable Context context) {
