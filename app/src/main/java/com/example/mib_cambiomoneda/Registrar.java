@@ -50,6 +50,7 @@ public class Registrar extends AppCompatActivity {
         editTextTextPassword = findViewById(R.id.editTextTextPasswordRegistrar);
         editTextTextEmailAddress = findViewById(R.id.editTextTextEmailAddressRegistrar);
         spnPaisRegistrar = findViewById(R.id.spnPaisRegistrar);
+
     }
 
     public void AceptarRegistro(View view) {
@@ -58,7 +59,7 @@ public class Registrar extends AppCompatActivity {
         Password = editTextTextPassword.getText().toString().trim();
         Email = editTextTextEmailAddress.getText().toString().trim();
         Pais = spnPaisRegistrar.getSelectedItem().toString().trim();
-
+        //UsuarioRegistrado();
         if (Nombre.isEmpty()) {
             Toast.makeText(Registrar.this, "Ingresar Nombre: " + Nombre, Toast.LENGTH_LONG).show();
         } else if (Password.isEmpty()) {
@@ -68,28 +69,25 @@ public class Registrar extends AppCompatActivity {
         } else if (Pais.equals("Seleccione...")) {
             Toast.makeText(Registrar.this, "Ingresar Pais", Toast.LENGTH_LONG).show();
         } else {
-            UsuarioRegistrado();
-            if(flagUser){
-                DBVolley();
+            DBVolley();
+            /*if(flagUser){
+
+
             }else{
                 Toast.makeText(this,"Usuario Registrado",Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(Registrar.this,MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
+            }*/
 
         }
     }
-
     public void DBVolley() {
-
         StringRequest request = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.equalsIgnoreCase("datos insertados")) {
                     Toast.makeText(Registrar.this, "Usuario Registrado correctamente", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Registrar.this, MainActivity.class);
-                    startActivity(intent);
                     finish();
                 } else {
                     Log.e("Error Volley", response);
@@ -114,7 +112,6 @@ public class Registrar extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(Registrar.this);
         requestQueue.add(request);
-
     }
     private void UsuarioRegistrado(){
         StringRequest request = new StringRequest(Request.Method.POST, UrlUserRegistrado, new Response.Listener<String>() {
@@ -124,15 +121,16 @@ public class Registrar extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String succes = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("Tb_Registro_Usuario_MIB");
+
                     if (succes.equals("1")) {
                         if(jsonArray.length()==0){
-                            flagUser=false;
+                            flagUser=true;
                         }else{
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 String Email = object.getString("Email");
                                 if(Email.equals(Registrar.this.Email)){
-                                    flagUser=true;
+                                    flagUser=false;
                                     }
                                 }
                             }

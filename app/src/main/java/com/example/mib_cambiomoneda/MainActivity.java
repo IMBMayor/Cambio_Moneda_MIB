@@ -1,15 +1,12 @@
 package com.example.mib_cambiomoneda;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mib_cambiomoneda.Modelo.PaisesDataSource;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private String Url = "https://computacionmovilmib.000webhostapp.com/MIB/Mostrar_Registro_Usuario.php";
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private PaisesDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
+        //dataSource=new PaisesDataSource(this);
+        //dataSource.openDB();
+        //dataSource.closeDB();
+
     }
 
     public void Ingresar(View view) {

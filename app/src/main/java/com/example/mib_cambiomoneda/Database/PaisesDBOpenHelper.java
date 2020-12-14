@@ -1,13 +1,11 @@
 package com.example.mib_cambiomoneda.Database;
 
-import android.content.ContentValues;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
-
-import com.example.mib_cambiomoneda.Modelo.Paises;
 
 public class PaisesDBOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "paises.db";
@@ -32,17 +30,8 @@ public class PaisesDBOpenHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
-
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAISES);
-        db.execSQL(INSERT_PAIS_Argentina);
-        db.execSQL(INSERT_PAIS_Bolivia);
-        db.execSQL(INSERT_PAIS_Brasil);
-        db.execSQL(INSERT_PAIS_Chile);
-        db.execSQL(INSERT_PAIS_Colombia);
-        db.execSQL(INSERT_PAIS_Estados_Unidos);
-        db.execSQL(INSERT_PAIS_Peru);
-        db.execSQL(INSERT_PAIS_Uruguay);
     }
 
 
